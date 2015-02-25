@@ -1,4 +1,9 @@
 <ion-view view-title="Finn rom">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios7-settings" ng-click="openModal()">
+
+    </button>
+  </ion-nav-buttons>
   <ion-content>
     <ion-list>
       <ion-item class="item" ng-repeat="room in rooms" href="#">
@@ -9,3 +14,17 @@
     </ion-list>
   </ion-content>
 </ion-view>
+
+<script id="my-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Filter</h1>
+    </ion-header-bar>
+    <ion-content>
+      <button class="button icon-left ion-chevron-left button-clear button-dark" ng-click="closeModal()">
+        Back
+      </button>
+    </ion-content>
+  </ion-modal-view>
+</script>
+

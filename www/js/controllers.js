@@ -1,7 +1,7 @@
 angular.module('useatApp.controllers', [])
 
-  .controller('FindRoomCtrl', function ($scope, apiUrl, $http) {
-    /*
+  .controller('FindRoomCtrl', function ($scope, $ionicModal, apiUrl, $http) {
+
     $scope.rooms = [
       {
         name: "G122",
@@ -19,10 +19,26 @@ angular.module('useatApp.controllers', [])
         capacity: 20
       }
     ];
-    */
 
     $http.get(apiUrl + "/rooms/").success(function(data) {
       $scope.rooms = data.results;
+    });
+    
+    $ionicModal.fromTemplateUrl('my-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
     });
   })
 
