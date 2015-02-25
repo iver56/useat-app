@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('useatApp.controllers', [])
 
 .controller('FindRoomCtrl', function($scope) {})
 
