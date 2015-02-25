@@ -1,6 +1,7 @@
 angular.module('useatApp.controllers', [])
 
-  .controller('FindRoomCtrl', function ($scope) {
+  .controller('FindRoomCtrl', function ($scope, apiUrl, $http) {
+    /*
     $scope.rooms = [
       {
         name: "G122",
@@ -18,6 +19,11 @@ angular.module('useatApp.controllers', [])
         capacity: 20
       }
     ];
+    */
+
+    $http.get(apiUrl + "/rooms/").success(function(data) {
+      $scope.rooms = data.results;
+    });
   })
 
   /*
