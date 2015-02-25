@@ -1,55 +1,11 @@
 <ion-view view-title="Finn rom">
-  <div class="tabs-striped tabs-top tabs-background-light tabs-color-positive">
-    <div class="tabs">
-      <a class="tab-item active" href="#">
-        <i class="icon ion-ios7-people"></i>
-        Test
-      </a>
-    </div>
-  </div>
-
-  <ion-content class="padding has-tabs-top">
-    <div class="list card">
-      <div class="item item-divider">G122</div>
-      <div class="item item-body">
-        <div>
-          Bygg: <b>Gamle elektro</b>
-        </div>
-        <div>
-          Kapasitet: <b>8</b>
-        </div>
-        <div>
-          Tilleggsutstyr: <b>Tavle</b>
-        </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">KJEL22</div>
-      <div class="item item-body">
-        <div>
-          Bygg: <b>Kjelhuset</b>
-        </div>
-        <div>
-          Kapasitet: <b>25</b>
-        </div>
-        <div>
-          Tilleggsutstyr: <b>Tavle, Projektor, Overhead</b>
-        </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">S21</div>
-      <div class="item item-body">
-        <div>
-          Bygg: <b>Sentralbygg 2</b>
-        </div>
-        <div>
-          Kapasitet: <b>20</b>
-        </div>
-        <div>
-          Tilleggsutstyr: <b>Projektor, Overhead</b>
-        </div>
-      </div>
-    </div>
+  <ion-content>
+    <ion-list>
+      <ion-item class="item" ng-repeat="room in rooms" href="#">
+        <h2>{{room.name}}</h2>
+        <p>Bygg: <b>{{room.building_name}}</b></p>
+        <p>Kapasitet: <b>{{room.capacity}}</b></p>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
