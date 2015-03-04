@@ -6,7 +6,7 @@
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <ion-item class="item" ng-repeat="room in rooms" ng-click="goToRoom(room.id)">
+      <ion-item class="item" ng-repeat="room in rooms" ng-click="goToRoom(room)">
         <h2>{{room.name}}</h2>
         <p>Bygg: <b>{{room.building_name}}</b></p>
         <p>Kapasitet: <b>{{room.capacity}}</b></p>

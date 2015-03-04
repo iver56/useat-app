@@ -1,6 +1,6 @@
 angular.module('useatApp.controllers', [])
 
-  .controller('FindRoomCtrl', function ($scope, $ionicModal, apiUrl, $http, $state) {
+  .controller('FindRoomCtrl', function ($scope, $ionicModal, apiUrl, $http, $state, RoomService) {
     $http.get(apiUrl + "/rooms/").success(function(data) {
       $scope.rooms = data.results;
     });
@@ -22,8 +22,9 @@ angular.module('useatApp.controllers', [])
       $scope.modal.remove();
     });
 
-    $scope.goToRoom = function(roomId) {
-      $state.go('tab.room-detail', {roomId: roomId});
+    $scope.goToRoom = function(room) {
+      RoomService.room = room;
+      $state.go('tab.room-detail', {roomId: room.id});
     }
   })
 
@@ -42,7 +43,9 @@ angular.module('useatApp.controllers', [])
     ];
   })
 
-   .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http) {
+   .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http, RoomService) {
+    $scope.room = RoomService.room;
+    console.log($scope.room);
     $http.get(apiUrl + "/rooms/" + $stateParams.roomId + "/").success(function(data) {
       $scope.room = data;
       console.log(data)
