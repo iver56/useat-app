@@ -1,25 +1,6 @@
 angular.module('useatApp.controllers', [])
 
   .controller('FindRoomCtrl', function ($scope, $ionicModal, apiUrl, $http) {
-
-    $scope.rooms = [
-      {
-        name: "G122",
-        building_name: "Gamle elektro",
-        capacity: 8
-      },
-      {
-        name: "KJEL22",
-        building_name: "Kjelhuset",
-        capacity: 25
-      },
-      {
-        name: "S21",
-        building_name: "Sentralbygg 2",
-        capacity: 20
-      }
-    ];
-
     $http.get(apiUrl + "/rooms/").success(function(data) {
       $scope.rooms = data.results;
     });

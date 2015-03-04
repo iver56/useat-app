@@ -14,7 +14,7 @@ angular.module('useatApp', ['ionic', 'useatApp.controllers', 'useatApp.services'
     });
   })
 
-  .constant('apiUrl', 'http://localhost:8000')
+  .constant('apiUrl', 'http://useat-api.iver.io')
 
   .config(function($httpProvider) {
     //Enable cross domain calls
