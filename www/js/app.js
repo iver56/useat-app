@@ -1,6 +1,6 @@
 angular.module('useatApp', ['ionic', 'useatApp.controllers', 'useatApp.services'])
 
-  .run(function($ionicPlatform) {
+  .run(function($ionicPlatform, $rootScope, $location) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -11,6 +11,15 @@ angular.module('useatApp', ['ionic', 'useatApp.controllers', 'useatApp.services'
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
+    });
+
+    $rootScope.$on('$stateChangeStart', function(event, next, current) {
+      if (!$rootScope.isfirstStateChangeDone && $location.url() !== 'tab.findRoom') {
+        //App is reloaded and the history stack is gone. Let's redirect to home.
+        return $location.path('/tab/findRoom');
+      }
+
+      $rootScope.isfirstStateChangeDone = true;
     });
   })
 
