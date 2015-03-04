@@ -1,6 +1,6 @@
 angular.module('useatApp.controllers', [])
 
-  .controller('FindRoomCtrl', function ($scope, $ionicModal, apiUrl, $http) {
+  .controller('FindRoomCtrl', function ($scope, $ionicModal, apiUrl, $http, $state) {
     $http.get(apiUrl + "/rooms/").success(function(data) {
       $scope.rooms = data.results;
     });
@@ -21,23 +21,13 @@ angular.module('useatApp.controllers', [])
     $scope.$on('$destroy', function() {
       $scope.modal.remove();
     });
-  })
 
-  /*
-  .controller('MapCtrl', function ($scope, Chats) {
-    $scope.chats = Chats.all();
-    $scope.remove = function (chat) {
-      Chats.remove(chat);
+    $scope.goToRoom = function(roomId) {
+      $state.go('tab.room-detail', {roomId: roomId});
     }
   })
 
-   .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-   $scope.chat = Chats.get($stateParams.chatId);
-   })
-   */
-
-  .controller('FavoritesCtrl', function ($scope, Friends) {
-    $scope.friends = Friends.all();
+  .controller('FavoritesCtrl', function ($scope) {
     $scope.favoriteRooms = [
       {
         name: "VE22",
@@ -51,14 +41,31 @@ angular.module('useatApp.controllers', [])
       }
     ];
   })
-  /*
-   .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-   $scope.friend = Friends.get($stateParams.friendId);
+
+   .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http) {
+    $http.get(apiUrl + "/rooms/" + $stateParams.roomId + "/").success(function(data) {
+      $scope.room = data;
+      console.log(data)
+    });
    })
-   */
+
 
   .controller('SettingsCtrl', function ($scope) {
     $scope.settings = {
       enableFriends: true
     };
   });
+
+
+/*
+ .controller('MapCtrl', function ($scope, Chats) {
+ $scope.chats = Chats.all();
+ $scope.remove = function (chat) {
+ Chats.remove(chat);
+ }
+ })
+
+ .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+ $scope.chat = Chats.get($stateParams.chatId);
+ })
+ */

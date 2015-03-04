@@ -81,17 +81,17 @@ angular.module('useatApp', ['ionic', 'useatApp.controllers', 'useatApp.services'
           }
         }
       })
-      /*
-       .state('tab.friend-detail', {
-       url: '/friend/:friendId',
+
+       .state('tab.room-detail', {
+       url: '/findRoom/:roomId',
        views: {
-       'tab-friends': {
-       templateUrl: 'templates/friend-detail.html',
-       controller: 'FriendDetailCtrl'
+       'tab-findRoom': {
+       templateUrl: 'templates/room-detail.html',
+       controller: 'RoomDetailCtrl'
        }
        }
        })
-       */
+
 
       .state('tab.settings', {
         url: '/settings',
