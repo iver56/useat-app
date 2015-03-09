@@ -21,12 +21,12 @@ angular.module(
     });
 
     $rootScope.$on('$stateChangeStart', function(event, next, current) {
-      if (!$rootScope.isfirstStateChangeDone && $location.url() !== 'tab.findRoom') {
-        //App is reloaded and the history stack is gone. Let's redirect to home.
-        return $location.path('/tab/findRoom');
-      }
-
+      var shouldRedirectToHome = !$rootScope.isfirstStateChangeDone && $location.url() !== 'tab.rooms';
       $rootScope.isfirstStateChangeDone = true;
+      if (shouldRedirectToHome) {
+        //App is reloaded and the history stack is gone. Let's redirect to home.
+        return $location.path('/tab/rooms');
+      }
     });
   })
 
@@ -57,36 +57,25 @@ angular.module(
 
       // Each tab has its own nav history stack:
 
-      .state('tab.findRoom', {
-        url: '/findRoom',
+      .state('tab.rooms', {
+        url: '/rooms',
         views: {
-          'tab-findRoom': {
-            templateUrl: 'templates/tab-findRoom.html',
-            controller: 'FindRoomCtrl'
+          'tab-rooms': {
+            templateUrl: 'templates/tab-rooms.html',
+            controller: 'RoomsCtrl'
           }
         }
       })
 
-      .state('tab.map', {
-        url: '/map',
+      .state('tab.room-detail', {
+        url: '/rooms/:roomId',
         views: {
-          'tab-map': {
-            templateUrl: 'templates/tab-map.html',
-            controller: 'MapCtrl'
+          'tab-rooms': {
+            templateUrl: 'templates/room-detail.html',
+            controller: 'RoomDetailCtrl'
           }
         }
       })
-      /*
-       .state('tab.chat-detail', {
-       url: '/chats/:chatId',
-       views: {
-       'tab-chats': {
-       templateUrl: 'templates/chat-detail.html',
-       controller: 'ChatDetailCtrl'
-       }
-       }
-       })
-       */
 
       .state('tab.favorites', {
         url: '/favorites',
@@ -97,17 +86,6 @@ angular.module(
           }
         }
       })
-
-      .state('tab.room-detail', {
-        url: '/findRoom/:roomId',
-        views: {
-          'tab-findRoom': {
-            templateUrl: 'templates/room-detail.html',
-            controller: 'RoomDetailCtrl'
-          }
-        }
-      })
-
 
       .state('tab.settings', {
         url: '/settings',
@@ -120,6 +98,6 @@ angular.module(
       });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/findRoom');
+    $urlRouterProvider.otherwise('/tab/rooms');
 
   });

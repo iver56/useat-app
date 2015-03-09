@@ -1,6 +1,6 @@
 angular.module('useatApp.controllers', [])
 
-  .controller('FindRoomCtrl', function($scope, $ionicModal, apiUrl, $http, $state, RoomService, GeolocationService) {
+  .controller('RoomsCtrl', function($scope, $ionicModal, apiUrl, $http, $state, RoomService, GeolocationService) {
 
     $scope.getRooms = function() {
       $scope.state = 'FINDING_LOCATION';
