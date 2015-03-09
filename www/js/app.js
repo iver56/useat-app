@@ -1,5 +1,12 @@
-angular.module('useatApp', ['ionic', 'useatApp.controllers', 'useatApp.services'])
-
+angular.module(
+  'useatApp',
+  [
+    'ionic',
+    'useatApp.controllers',
+    'useatApp.services',
+    'useatApp.directives'
+  ]
+)
   .run(function($ionicPlatform, $rootScope, $location) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -91,15 +98,15 @@ angular.module('useatApp', ['ionic', 'useatApp.controllers', 'useatApp.services'
         }
       })
 
-       .state('tab.room-detail', {
-       url: '/findRoom/:roomId',
-       views: {
-       'tab-findRoom': {
-       templateUrl: 'templates/room-detail.html',
-       controller: 'RoomDetailCtrl'
-       }
-       }
-       })
+      .state('tab.room-detail', {
+        url: '/findRoom/:roomId',
+        views: {
+          'tab-findRoom': {
+            templateUrl: 'templates/room-detail.html',
+            controller: 'RoomDetailCtrl'
+          }
+        }
+      })
 
 
       .state('tab.settings', {

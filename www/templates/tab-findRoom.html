@@ -8,10 +8,15 @@
     <ion-list>
       <ion-item class="item" ng-repeat="room in rooms" ng-click="goToRoom(room)">
         <h2>{{room.name}}</h2>
-        <p>Bygg: <b>{{room.building_name}}</b></p>
-        <p>Kapasitet: <b>{{room.capacity}}</b></p>
+        <p>Ca. <span place-distance metres="room.distance"></span>, {{ room.building_name }}</p>
+        <p>Kapasitet: {{ room.capacity }}</p>
       </ion-item>
     </ion-list>
+
+    <p ng-if="state === 'FINDING_POSITION'">Finner posisjon...</p>
+    <p ng-if="state === 'LOADING_ROOMS'">Laster rom i nærheten av deg...</p>
+    <p ng-if="state === 'GEOLOCATION_ERROR'">Klarte ikke å finne posisjonen din</p>
+    <p ng-if="state === 'LOAD_ROOMS_ERROR'">Klarte ikke å laste rom-lista</p>
   </ion-content>
 </ion-view>
 

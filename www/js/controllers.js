@@ -1,10 +1,34 @@
 angular.module('useatApp.controllers', [])
 
-  .controller('FindRoomCtrl', function ($scope, $ionicModal, apiUrl, $http, $state, RoomService) {
-    $http.get(apiUrl + "/rooms/").success(function(data) {
-      $scope.rooms = data.results;
+  .controller('FindRoomCtrl', function($scope, $ionicModal, apiUrl, $http, $state, RoomService, GeolocationService) {
+
+    $scope.getRooms = function() {
+      $scope.state = 'FINDING_LOCATION';
+
+      GeolocationService.getCurrentPosition().then(function(currentPosition) {
+        $scope.state = 'LOADING_ROOMS';
+
+        var url = apiUrl + "/rooms/?lat=" + currentPosition.coords.latitude
+          + "&lon=" + currentPosition.coords.longitude;
+
+        $http.get(url)
+          .success(function(data) {
+            $scope.rooms = data.results;
+            $scope.state = 'LOADED';
+          })
+          .error(function(data) {
+            $scope.state = 'LOAD_ROOMS_ERROR';
+          });
+
+      }, function() {
+        $scope.state = 'GEOLOCATION_ERROR';
+      });
+    };
+
+    $scope.$on("$ionicView.beforeEnter", function() {
+      $scope.getRooms();
     });
-    
+
     $ionicModal.fromTemplateUrl('my-modal.html', {
       scope: $scope,
       animation: 'slide-in-up'
@@ -28,7 +52,7 @@ angular.module('useatApp.controllers', [])
     }
   })
 
-  .controller('FavoritesCtrl', function ($scope) {
+  .controller('FavoritesCtrl', function($scope) {
     $scope.favoriteRooms = [
       {
         name: "VE22",
@@ -43,17 +67,33 @@ angular.module('useatApp.controllers', [])
     ];
   })
 
-   .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http, RoomService) {
+  .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http, RoomService, GeolocationService) {
     $scope.room = RoomService.room;
-    console.log($scope.room);
-    $http.get(apiUrl + "/rooms/" + $stateParams.roomId + "/").success(function(data) {
-      $scope.room = data;
-      console.log(data)
+
+    $scope.state = 'FINDING_LOCATION';
+
+    GeolocationService.getCurrentPosition().then(function(currentPosition) {
+      $scope.state = 'LOADING_ROOMS';
+
+      var url = apiUrl + "/rooms/" + $stateParams.roomId + "/?lat="
+        + currentPosition.coords.latitude + "&lon=" + currentPosition.coords.longitude;
+
+      $http.get(url)
+        .success(function(data) {
+          $scope.room = data;
+          $scope.state = 'LOADED';
+        })
+        .error(function(data) {
+          $scope.state = 'LOAD_ROOMS_ERROR';
+        });
+
+    }, function() {
+      $scope.state = 'GEOLOCATION_ERROR';
     });
-   })
+  })
 
 
-  .controller('SettingsCtrl', function ($scope) {
+  .controller('SettingsCtrl', function($scope) {
     $scope.settings = {
       enableFriends: true
     };
