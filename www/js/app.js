@@ -87,6 +87,16 @@ angular.module(
         }
       })
 
+      .state('tab.roomFavorite-detail', {
+        url: '/favorites/:roomId',
+        views: {
+          'tab-favorites': {
+            templateUrl: 'templates/room-detail.html',
+            controller: 'RoomDetailCtrl'
+          }
+        }
+      })
+
       .state('tab.settings', {
         url: '/settings',
         views: {

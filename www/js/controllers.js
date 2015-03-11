@@ -52,19 +52,24 @@ angular.module('useatApp.controllers', [])
     }
   })
 
-  .controller('FavoritesCtrl', function($scope) {
+  .controller('FavoritesCtrl', function ($scope, $state) {
     $scope.favoriteRooms = [
       {
+        id: 1,
         name: "VE22",
         building_name: "Perleporten",
         capacity: 60
       },
       {
+        id: 2,
         name: "R Zoo-2",
         building_name: "Realfagbygget",
         capacity: 12
       }
     ];
+    $scope.goToFavoriteRoom = function(room) {
+      $state.go('tab.roomFavorite-detail', {roomId: room.id})
+    }
   })
 
   .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http, RoomService, GeolocationService) {
