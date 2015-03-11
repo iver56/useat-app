@@ -13,6 +13,10 @@
       </ion-item>
     </ion-list>
 
+    <div ng-if="state === 'FINDING_POSITION' || state === 'LOADING_ROOMS'">
+      <img src="img/ajax-loader.gif">
+    </div>
+
     <p ng-if="state === 'FINDING_POSITION'">Finner posisjon...</p>
     <p ng-if="state === 'LOADING_ROOMS'">Laster rom i nærheten av deg...</p>
     <p ng-if="state === 'GEOLOCATION_ERROR'">Klarte ikke å finne posisjonen din</p>
