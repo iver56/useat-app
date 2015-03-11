@@ -52,24 +52,41 @@ angular.module('useatApp.controllers', [])
     }
   })
 
-  .controller('FavoritesCtrl', function ($scope, $state) {
-    $scope.favoriteRooms = [
-      {
-        id: 1,
-        name: "VE22",
-        building_name: "Perleporten",
-        capacity: 60
-      },
-      {
-        id: 2,
-        name: "R Zoo-2",
-        building_name: "Realfagbygget",
-        capacity: 12
-      }
-    ];
-    $scope.goToFavoriteRoom = function(room) {
-      $state.go('tab.roomFavorite-detail', {roomId: room.id})
-    }
+  .controller('FavoritesCtrl', function ($scope, $state, FavoriteService, GeolocationService, apiUrl, $http, RoomService) {
+    $scope.getRooms = function() {
+      var favorites = FavoriteService.getFavorites();
+      $scope.state = 'FINDING_LOCATION';
+
+      GeolocationService.getCurrentPosition().then(function (currentPosition) {
+        $scope.state = 'LOADING_ROOMS';
+
+        var url = apiUrl + "/rooms/favorites/?ids=" + favorites.join(',')
+          + "&lat=" + currentPosition.coords.latitude
+          + "&lon=" + currentPosition.coords.longitude;
+
+        $http.get(url)
+          .success(function (data) {
+            $scope.rooms = data;
+            $scope.state = 'LOADED';
+          })
+          .error(function (data) {
+            $scope.state = 'LOAD_ROOMS_ERROR';
+          });
+
+      }, function () {
+        $scope.state = 'GEOLOCATION_ERROR';
+      });
+    };
+
+    $scope.goToRoom = function(room) {
+      RoomService.room = room;
+      $state.go('tab.roomFavorite-detail', {roomId: room.id});
+    };
+
+    $scope.$on("$ionicView.beforeEnter", function() {
+      $scope.getRooms();
+    });
+
   })
 
   .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http, RoomService, GeolocationService, FavoriteService) {
