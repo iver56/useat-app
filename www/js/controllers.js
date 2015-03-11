@@ -72,29 +72,51 @@ angular.module('useatApp.controllers', [])
     }
   })
 
-  .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http, RoomService, GeolocationService) {
+  .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http, RoomService, GeolocationService, $ionicLoading) {
     $scope.room = RoomService.room;
 
     $scope.state = 'FINDING_LOCATION';
 
-    GeolocationService.getCurrentPosition().then(function(currentPosition) {
+    GeolocationService.getCurrentPosition().then(function (currentPosition) {
       $scope.state = 'LOADING_ROOMS';
 
       var url = apiUrl + "/rooms/" + $stateParams.roomId + "/?lat="
         + currentPosition.coords.latitude + "&lon=" + currentPosition.coords.longitude;
 
       $http.get(url)
-        .success(function(data) {
+        .success(function (data) {
           $scope.room = data;
           $scope.state = 'LOADED';
+          getMap();
         })
-        .error(function(data) {
+        .error(function (data) {
           $scope.state = 'LOAD_ROOMS_ERROR';
         });
 
-    }, function() {
+    }, function () {
       $scope.state = 'GEOLOCATION_ERROR';
     });
+    function getMap() {
+      var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
+
+      var mapOptions = {
+        center: myLatlng,
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+      var lat = $scope.room.position.coordinates[1];
+      var lng = $scope.room.position.coordinates[0];
+      map.setCenter(new google.maps.LatLng(lat, lng));
+      var roomLocation = new google.maps.Marker({
+        position: new google.maps.LatLng(lat, lng),
+        map: map,
+        title: "Room Location"
+      });
+
+      $scope.map = map;
+    }
   })
 
 
@@ -117,3 +139,4 @@ angular.module('useatApp.controllers', [])
  $scope.chat = Chats.get($stateParams.chatId);
  })
  */
+
