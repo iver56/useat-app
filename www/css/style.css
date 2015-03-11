@@ -1,0 +1,13 @@
+.favorite-button::before {
+  color: yellow;
+  text-shadow: 0 0 1px black;
+}
+
+.scroll {
+  height: 50%;
+}
+
+#map {
+  width: 100%;
+  height: 180px;
+}
