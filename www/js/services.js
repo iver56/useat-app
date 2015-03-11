@@ -27,21 +27,26 @@ angular.module('useatApp.services', [])
     if (!this.favorites) {
       this.favorites = [];
     }
+
     this.addFavorite = function(roomId) {
       this.favorites.push(roomId);
-      this.saveFavorites()
+      this.saveFavorites();
     };
+
     this.removeFavorite = function(roomId) {
       var index = this.favorites.indexOf(roomId);
       this.favorites.splice(index, 1);
-      this.saveFavorites()
+      this.saveFavorites();
     };
+
     this.getFavorites = function() {
       return this.favorites;
     };
+
     this.saveFavorites = function() {
-      simpleStorage.set('favorites', this.favorites)
+      simpleStorage.set('favorites', this.favorites);
     };
+
     this.isFavorite = function(roomId) {
       if (this.favorites.indexOf(roomId) != -1) {
         return true;
