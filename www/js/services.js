@@ -20,17 +20,19 @@ angular.module('useatApp.services', [])
 
       return deferred.promise;
     };
-
   })
 
   .service('FavoriteService', function() {
-    this.favorites = [];
-    this.addFavorite = function(room) {
-      this.favorites.push(room);
+    this.favorites = simpleStorage.get('favorites');
+    if (!this.favorites) {
+      this.favorites = [];
+    }
+    this.addFavorite = function(roomId) {
+      this.favorites.push(roomId);
       this.saveFavorites()
     };
-    this.removeFavorite = function(room) {
-      var index = this.favorites.indexOf(room);
+    this.removeFavorite = function(roomId) {
+      var index = this.favorites.indexOf(roomId);
       this.favorites.splice(index, 1);
       this.saveFavorites()
     };
@@ -39,6 +41,13 @@ angular.module('useatApp.services', [])
     };
     this.saveFavorites = function() {
       simpleStorage.set('favorites', this.favorites)
-    }
+    };
+    this.isFavorite = function(roomId) {
+      if (this.favorites.indexOf(roomId) != -1) {
+        return true;
+      } else {
+        return false;
+      }
+    };
   })
 ;

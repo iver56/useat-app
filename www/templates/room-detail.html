@@ -4,8 +4,8 @@ Denne template'n skal inneholde de forskjellige rommene.
 
 <ion-view view-title="{{room.name}}">
   <ion-nav-buttons side="right">
-    <button class="button button-icon icon" ng-click="isFavorite = !isFavorite"
-        ng-class="isFavorite ? 'favorite-button ion-ios7-star' : 'ion-ios7-star-outline'"></button>
+    <button class="button button-icon icon" ng-click="toggleFavorite()"
+        ng-class="isFavorite() ? 'favorite-button ion-ios7-star' : 'ion-ios7-star-outline'"></button>
   </ion-nav-buttons>
 
   <ion-content class="padding">

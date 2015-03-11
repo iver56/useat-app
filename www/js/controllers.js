@@ -72,7 +72,7 @@ angular.module('useatApp.controllers', [])
     }
   })
 
-  .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http, RoomService, GeolocationService, $ionicLoading) {
+  .controller('RoomDetailCtrl', function($scope, $stateParams, apiUrl, $http, RoomService, GeolocationService, FavoriteService) {
     $scope.room = RoomService.room;
 
     $scope.state = 'FINDING_LOCATION';
@@ -96,6 +96,7 @@ angular.module('useatApp.controllers', [])
     }, function () {
       $scope.state = 'GEOLOCATION_ERROR';
     });
+
     function getMap() {
       var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
 
@@ -117,6 +118,20 @@ angular.module('useatApp.controllers', [])
 
       $scope.map = map;
     }
+
+    $scope.toggleFavorite = function() {
+      if ($scope.isFavorite()) {
+        FavoriteService.removeFavorite($scope.room.id);
+      } else {
+        FavoriteService.addFavorite($scope.room.id);
+      }
+    };
+
+    $scope.isFavorite = function() {
+      return FavoriteService.isFavorite($scope.room.id);
+    }
+
+
   })
 
 
@@ -139,4 +154,3 @@ angular.module('useatApp.controllers', [])
  $scope.chat = Chats.get($stateParams.chatId);
  })
  */
-
