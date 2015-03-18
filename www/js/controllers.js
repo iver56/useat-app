@@ -152,10 +152,8 @@ angular.module('useatApp.controllers', [])
   })
 
 
-  .controller('SettingsCtrl', function($scope) {
-    $scope.settings = {
-      enableFriends: true
-    };
+  .controller('InformationCtrl', function($scope) {
+
   });
 
 

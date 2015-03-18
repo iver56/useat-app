@@ -97,12 +97,12 @@ angular.module(
         }
       })
 
-      .state('tab.settings', {
-        url: '/settings',
+      .state('tab.information', {
+        url: '/information',
         views: {
-          'tab-settings': {
-            templateUrl: 'templates/tab-settings.html',
-            controller: 'SettingsCtrl'
+          'tab-information': {
+            templateUrl: 'templates/tab-information.html',
+            controller: 'InformationCtrl'
           }
         }
       });
