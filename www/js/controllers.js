@@ -55,27 +55,31 @@ angular.module('useatApp.controllers', [])
   .controller('FavoritesCtrl', function ($scope, $state, FavoriteService, GeolocationService, apiUrl, $http, RoomService) {
     $scope.getRooms = function() {
       var favorites = FavoriteService.getFavorites();
-      $scope.state = 'FINDING_LOCATION';
+      if (favorites.length == 0) {
+        $scope.state = 'NO_FAVORITES';
+      } else {
+        $scope.state = 'FINDING_LOCATION';
 
-      GeolocationService.getCurrentPosition().then(function (currentPosition) {
-        $scope.state = 'LOADING_ROOMS';
+        GeolocationService.getCurrentPosition().then(function (currentPosition) {
+          $scope.state = 'LOADING_ROOMS';
 
-        var url = apiUrl + "/rooms/favorites/?ids=" + favorites.join(',')
-          + "&lat=" + currentPosition.coords.latitude
-          + "&lon=" + currentPosition.coords.longitude;
+          var url = apiUrl + "/rooms/favorites/?ids=" + favorites.join(',')
+            + "&lat=" + currentPosition.coords.latitude
+            + "&lon=" + currentPosition.coords.longitude;
 
-        $http.get(url)
-          .success(function (data) {
-            $scope.rooms = data;
-            $scope.state = 'LOADED';
-          })
-          .error(function (data) {
-            $scope.state = 'LOAD_ROOMS_ERROR';
-          });
+          $http.get(url)
+            .success(function (data) {
+              $scope.rooms = data;
+              $scope.state = 'LOADED';
+            })
+            .error(function (data) {
+              $scope.state = 'LOAD_ROOMS_ERROR';
+            });
 
-      }, function () {
-        $scope.state = 'GEOLOCATION_ERROR';
-      });
+        }, function () {
+          $scope.state = 'GEOLOCATION_ERROR';
+        });
+      }
     };
 
     $scope.goToRoom = function(room) {
@@ -147,8 +151,6 @@ angular.module('useatApp.controllers', [])
     $scope.isFavorite = function() {
       return FavoriteService.isFavorite($scope.room.id);
     }
-
-
   })
 
 

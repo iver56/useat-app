@@ -12,6 +12,10 @@
       <img src="img/ajax-loader.gif">
     </div>
 
+    <p class="padding" ng-if="state === 'NO_FAVORITES'"><b>Du har ingen favoritter! :0</b></p>
+    <p class="padding" ng-if="state === 'NO_FAVORITES'">Legg til et rom i favoritter ved å trykke på "Finn rom"-tab'en. Velg det rommet du ønsker å favorisere, og trykk på stjerne-symbolet øverst til høyre. </p>
+    <p class="padding" ng-if="state === 'NO_FAVORITES'">Når stjernen er gul, er rommet favorisert.</p>
+
     <p ng-if="state === 'FINDING_POSITION'">Finner posisjon...</p>
     <p ng-if="state === 'LOADING_ROOMS'">Laster rom i nærheten av deg...</p>
     <p ng-if="state === 'GEOLOCATION_ERROR'">Klarte ikke å finne posisjonen din</p>
