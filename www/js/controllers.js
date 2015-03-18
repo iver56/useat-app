@@ -57,6 +57,7 @@ angular.module('useatApp.controllers', [])
       var favorites = FavoriteService.getFavorites();
       if (favorites.length == 0) {
         $scope.state = 'NO_FAVORITES';
+        $scope.rooms = [];
       } else {
         $scope.state = 'FINDING_LOCATION';
 
