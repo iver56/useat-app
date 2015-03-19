@@ -1,6 +1,12 @@
 angular.module('useatApp.controllers', [])
 
   .controller('RoomsCtrl', function($scope, $ionicModal, apiUrl, $http, $state, RoomService, GeolocationService) {
+    $scope.capacity = 0;
+
+    $http.get(apiUrl + "/room_features/")
+      .success(function(data) {
+        $scope.features = data.results;
+      });
 
     $scope.getRooms = function() {
       $scope.state = 'FINDING_LOCATION';
@@ -50,6 +56,8 @@ angular.module('useatApp.controllers', [])
       RoomService.room = room;
       $state.go('tab.room-detail', {roomId: room.id});
     }
+
+    $scope.capacityList = [1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 250, 300, 350, 400];
   })
 
   .controller('FavoritesCtrl', function ($scope, $state, FavoriteService, GeolocationService, apiUrl, $http, RoomService) {

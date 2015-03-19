@@ -31,6 +31,28 @@
       <button class="button button-icon icon ion-close" ng-click="closeModal()"></button>
     </ion-header-bar>
     <ion-content>
+
+      <button class="button icon-left ion-chevron-left button-clear button-dark" ng-click="closeModal()">
+        Back
+      </button>
+
+      <div class="range">
+        <i class="ion-person"></i>
+        <input ng-model="capacity" type="range" name="capacity" min="0" max="19">
+        <i class="ion-person-stalker"></i>
+      </div>
+
+      <p class="padding" align="center">Kapasitet: {{capacityList[capacity]}}</p>
+
+      <ion-list>
+        <ion-item class="item item-checkbox" ng-repeat="feature in features">
+          <label class="checkbox">
+            <input type="checkbox">
+          </label>
+          {{feature.name}}
+        </ion-item>
+      </ion-list>
+
     </ion-content>
   </ion-modal-view>
 </script>
