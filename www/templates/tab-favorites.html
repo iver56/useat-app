@@ -4,6 +4,10 @@
       <ion-item class="item" ng-repeat="room in rooms" ng-click="goToRoom(room)">
         <h2>{{room.name}}</h2>
         <p>Ca. <span place-distance metres="room.distance"></span>, {{ room.building_name }}</p>
+        <p ng-switch on="room.available_since">
+          <span ng-switch-when="null">Ikke tilgjengelig akkurat nå</span>
+          <b ng-switch-default="">Tilgjengelig nå</b>
+        </p>
         <p>Kapasitet: {{ room.capacity }}</p>
       </ion-item>
     </ion-list>
