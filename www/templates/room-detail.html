@@ -10,11 +10,14 @@ Denne template'n skal inneholde de forskjellige rommene.
 
   <ion-content class="padding">
     <div id="map" data-tap-disabled="true"></div>
-
     <p>Bygg: <b>{{room.building_name}}</b>, {{room.floor + 1}}. etg</p>
     <p>Kapasitet: <b>{{room.capacity}}</b> personer</p>
-    <p>Høyttalere: <b>{{room.has_speakers ? 'Ja' : 'Nei'}}</b></p>
-    <p>Projektor: <b>{{room.has_projector ? 'Ja' : 'Nei'}}</b></p>
-    <p>Tavle: <b>{{room.has_black_board ? 'Ja' : 'Nei'}}</b></p>
+
+    <p>Romegenskaper:</p>
+    <ul>
+      <li class="my-nav" ng-repeat="feature in room.features">
+        <p>{{feature.name}}</p>
+      </li>
+    </ul>
   </ion-content>
 </ion-view>
