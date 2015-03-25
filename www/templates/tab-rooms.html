@@ -34,16 +34,16 @@
 
       <div class="range">
         <i class="ion-person"></i>
-        <input ng-model="capacity" type="range" name="capacity" min="0" max="19">
+        <input ng-model="capacity.min" type="range" name="capacity" min="0" max="19">
         <i class="ion-person-stalker"></i>
       </div>
 
-      <p align="center">Kapasitet: {{capacityList[capacity]}}</p>
+      <p align="center">Kapasitet: {{capacityList[capacity.min]}}</p>
 
       <ion-list>
         <ion-item class="item item-checkbox" ng-repeat="feature in features">
           <label class="checkbox">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="feature.checked">
           </label>
           {{feature.name}}
         </ion-item>

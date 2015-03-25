@@ -1,6 +1,6 @@
 angular.module('useatApp.controllers')
   .controller('RoomsCtrl', function($scope, $ionicModal, apiUrl, $http, $state, RoomService, GeolocationService) {
-    $scope.capacity = 0;
+    $scope.capacity = {min: 0};
 
     $http.get(apiUrl + "/room_features/")
       .success(function(data) {
@@ -13,11 +13,23 @@ angular.module('useatApp.controllers')
       GeolocationService.getCurrentPosition().then(function(currentPosition) {
         $scope.state = 'LOADING_ROOMS';
 
-        console.log($scope.capacity)
 
         var url = apiUrl + "/rooms/?lat=" + currentPosition.coords.latitude
           + "&lon=" + currentPosition.coords.longitude
-          + "&min_capacity=" + $scope.capacityList[$scope.capacity];
+          + "&min_capacity=" + $scope.capacityList[$scope.capacity.min];
+
+        if ($scope.features) {
+          var featureIds = [];
+          for (var i = 0; i < $scope.features.length; i++) {
+            var feature = $scope.features[i];
+            if (feature.checked) {
+              featureIds.push(feature.id);
+            }
+          }
+          if (featureIds.length > 0) {
+            url += "&feature_ids=" + featureIds.join(",");
+          }
+        }
 
         $http.get(url)
           .success(function(data) {
