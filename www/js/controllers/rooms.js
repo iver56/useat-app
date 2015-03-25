@@ -39,6 +39,9 @@ angular.module('useatApp.controllers')
           })
           .error(function(data) {
             $scope.state = 'LOAD_ROOMS_ERROR';
+          })
+          .finally(function() {
+            $scope.$broadcast('scroll.refreshComplete');
           });
 
       }, function() {

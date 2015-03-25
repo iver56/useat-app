@@ -5,6 +5,11 @@
     </button>
   </ion-nav-buttons>
   <ion-content>
+    <ion-refresher
+        pulling-text="Dra for å oppdatere..."
+        on-refresh="getRooms()">
+    </ion-refresher>
+
     <ion-list>
       <ion-item class="item" ng-repeat="room in rooms" ng-click="goToRoom(room)">
         <h2>{{room.name}}</h2>
@@ -19,6 +24,7 @@
     <p ng-if="state === 'LOADING_ROOMS'">Laster rom i nærheten av deg...</p>
     <p ng-if="state === 'GEOLOCATION_ERROR'">Klarte ikke å finne posisjonen din</p>
     <p ng-if="state === 'LOAD_ROOMS_ERROR'">Klarte ikke å laste rom-lista</p>
+
   </ion-content>
 </ion-view>
 

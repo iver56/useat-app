@@ -14,6 +14,7 @@ Denne template'n skal inneholde de forskjellige rommene.
     <p>Kapasitet: <b>{{room.capacity}}</b> personer</p>
 
     <p>Romegenskaper:</p>
+    <p align="center" ng-if="room.features.length == 0">Rommet har ingen egenskaper.</p>
     <ul>
       <li class="my-nav" ng-repeat="feature in room.features">
         <p>{{feature.name}}</p>
