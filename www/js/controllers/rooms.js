@@ -1,6 +1,7 @@
 angular.module('useatApp.controllers')
   .controller('RoomsCtrl', function($scope, $ionicModal, apiUrl, $http, $state, RoomService, GeolocationService) {
     $scope.capacity = {min: 0};
+    $scope.state = 'INITIALIZING';
 
     $http.get(apiUrl + "/room_features/")
       .success(function(data) {

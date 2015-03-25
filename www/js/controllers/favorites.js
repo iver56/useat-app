@@ -1,6 +1,7 @@
 angular.module('useatApp.controllers')
-
   .controller('FavoritesCtrl', function ($scope, $state, FavoriteService, GeolocationService, apiUrl, $http, RoomService) {
+    $scope.state = 'INITIALIZING';
+
     $scope.getRooms = function() {
       var favorites = FavoriteService.getFavorites();
       if (favorites.length == 0) {
