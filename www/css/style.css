@@ -41,3 +41,7 @@
     max-width: 480px;
   }
 }
+
+.platform-ie .tab-nav.tabs {
+  justify-content: flex-start;
+}
