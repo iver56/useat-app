@@ -15,3 +15,29 @@
 .my-nav {
   margin-left: 32px;
 }
+
+@media screen and (min-width: 480px) {
+  body.platform-browser .view-container {
+    width: 480px;
+    left: 50%;
+    margin-left: -240px;
+    box-shadow: 0 0 5px #777;
+  }
+
+  body.platform-browser .nav-bar-container .bar-header {
+    width: 480px;
+    left: 50%;
+    margin-left: -240px;
+  }
+
+  body.platform-browser .modal {
+    width: 480px;
+    left: 50%;
+    margin-left: -240px;
+    right: auto;
+  }
+
+  body.platform-browser .action-sheet-wrapper {
+    max-width: 480px;
+  }
+}
