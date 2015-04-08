@@ -35,7 +35,11 @@ angular.module('useatApp.controllers')
         $http.get(url)
           .success(function(data) {
             $scope.rooms = data.results;
-            $scope.state = 'LOADED';
+            if ($scope.rooms.length == 0) {
+              $scope.state = 'NO_ROOMS'
+            } else {
+              $scope.state = 'LOADED';
+            }
           })
           .error(function(data) {
             $scope.state = 'LOAD_ROOMS_ERROR';
