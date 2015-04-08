@@ -18,7 +18,7 @@
       </ion-item>
     </ion-list>
 
-    <p class="padding" ng-if="state === 'NO_ROOMS'"><b>Beklager! Det finnes ingen rom som oppfyller kravene du har satt.</b></p>
+    <p class="padding" ng-if="state === 'NO_ROOMS'"><b>Beklager! Det finnes ingen ledige rom i nærheten som oppfyller kravene du har satt.</b></p>
     <p class="padding" ng-if="state === 'NO_ROOMS'">Du kan endre filtreringen ved å trykke på symbolet øverst til venstre.</p>
 
     <ion-spinner ng-if="state === 'FINDING_POSITION' || state === 'LOADING_ROOMS' || state === 'INITIALIZING'"></ion-spinner>
