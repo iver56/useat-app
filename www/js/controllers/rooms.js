@@ -68,9 +68,12 @@ angular.module('useatApp.controllers')
     };
     $scope.closeModal = function() {
       $scope.modal.hide();
-      $scope.getRooms();
     };
-    //Cleanup the modal when we're done with it!
+
+    $scope.$on('modal.hidden', function() {
+      $scope.getRooms();
+    });
+
     $scope.$on('$destroy', function() {
       $scope.modal.remove();
     });
