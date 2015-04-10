@@ -45,3 +45,7 @@
 .platform-ie .tab-nav.tabs {
   justify-content: flex-start;
 }
+
+input[type=range]::-ms-tooltip {
+  display: none;
+}
