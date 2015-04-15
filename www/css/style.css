@@ -62,3 +62,13 @@ input[type=range]::-ms-tooltip {
   width: 100%;
   height: 240px;
 }
+
+@media screen and (min-height: 620px) {
+  .mazemap-wrapper {
+    height: 420px;
+  }
+
+  .mazemap-iframe {
+    height: 420px;
+  }
+}
