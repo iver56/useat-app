@@ -1,24 +1,29 @@
-<!--
-Denne template'n skal inneholde de forskjellige rommene.
--->
-
 <ion-view view-title="{{room.name}}">
   <ion-nav-buttons side="right">
     <button class="button button-icon icon" ng-click="toggleFavorite()"
         ng-class="isFavorite() ? 'favorite-button ion-ios-star' : 'ion-ios-star-outline'"></button>
   </ion-nav-buttons>
 
-  <ion-content class="padding">
-    <div id="map" data-tap-disabled="true"></div>
-    <p>Bygg: <b>{{room.building_name}}</b>, {{room.floor + 1}}. etg</p>
-    <p>Kapasitet: <b>{{room.capacity}}</b> personer</p>
+  <ion-content>
+    <div class="mazemap-wrapper">
+      <iframe ng-if="room.mazemap_url" class="mazemap-iframe"
+              frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+              src="{{ room.mazemap_url | trustAsResourceUrl }}"></iframe>
+      <ion-spinner ng-if="state !== 'LOAD_ROOMS_ERROR' && state !== 'GEOLOCATION_ERROR'"></ion-spinner>
+    </div>
 
-    <p>Romegenskaper:</p>
-    <p align="center" ng-if="room.features.length == 0">Rommet har ingen egenskaper.</p>
-    <ul>
-      <li class="my-nav" ng-repeat="feature in room.features">
-        <p>{{feature.name}}</p>
-      </li>
-    </ul>
+    <div class="padding">
+      <p>Bygg: <b>{{room.building_name}}</b>, {{room.floor + 1}}. etg</p>
+      <p>Kapasitet: <b>{{room.capacity}}</b> personer</p>
+
+      <p>Romegenskaper:</p>
+      <p align="center" ng-if="room.features.length == 0">Rommet har ingen egenskaper.</p>
+      <ul>
+        <li class="my-nav" ng-repeat="feature in room.features">
+          <p>{{feature.name}}</p>
+        </li>
+      </ul>
+    </div>
+
   </ion-content>
 </ion-view>

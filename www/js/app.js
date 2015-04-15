@@ -8,7 +8,8 @@ angular.module(
     'ionic',
     'useatApp.controllers',
     'useatApp.services',
-    'useatApp.directives'
+    'useatApp.directives',
+    'useatApp.filters'
   ]
 )
   .run(function($ionicPlatform, $rootScope, $location) {
